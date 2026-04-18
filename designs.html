@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oliver Samuels — Tee Design Concepts V2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&family=Anton&family=Archivo+Black&family=Bungee&family=Bungee+Shade&family=Passion+One:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --ja-green: #009B3A;
+      --ja-gold: #FED100;
+      --ja-black: #000000;
+      --ja-green-deep: #006A26;
+      --tee-blue: #2063B5;
+      --tee-red: #C8272D;
+    }
+    body { background: #EDE6D8; }
+    .designs-hero { padding: 70px 0 30px; text-align: center; }
+    .designs-hero h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(38px, 5vw, 62px);
+      letter-spacing: -0.02em;
+      margin: 12px 0 18px;
+    }
+    .designs-hero h1 em { font-style: italic; color: var(--gold-deep); }
+    .designs-hero p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 16px;
+    }
+    .direction-note {
+      background: #1A1A1A;
+      color: #EEE4CE;
+      padding: 22px 28px;
+      margin: 32px auto 0;
+      max-width: 780px;
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: left;
+    }
+    .direction-note strong { color: var(--ja-gold); }
+
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 56px 40px;
+      padding: 60px 0 120px;
+    }
+    @media (max-width: 820px) {
+      .designs-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Tee mockup */
+    .tee {
+      position: relative;
+      aspect-ratio: 1/1.05;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tee-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+    }
+    .tee--blue    .tee-body { fill: #2063B5; }
+    .tee--green   .tee-body { fill: #0E6E3A; }
+    .tee--gold    .tee-body { fill: #F2B93A; }
+    .tee--black   .tee-body { fill: #141414; }
+    .tee--red     .tee-body { fill: #B8282E; }
+    .tee--heather .tee-body { fill: #C4C6C2; }
+    .tee--cream   .tee-body { fill: #EEE4CE; }
+    .tee--stitch { stroke: rgba(0,0,0,0.15); stroke-width: 1; fill: none; }
+    .tee--black .tee--stitch, .tee--green .tee--stitch, .tee--red .tee--stitch, .tee--blue .tee--stitch {
+      stroke: rgba(255,255,255,0.12);
+    }
+
+    .tee-print {
+      position: relative;
+      z-index: 2;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+      margin-top: 10%;
+    }
+
+    /* Character placeholder */
+    .char-placeholder {
+      width: 45%;
+      aspect-ratio: 3/4;
+      background: rgba(255,255,255,0.12);
+      border: 2px dashed rgba(255,255,255,0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      padding: 8px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .char-placeholder.on-light {
+      background: rgba(0,0,0,0.08);
+      border-color: rgba(0,0,0,0.3);
+      color: rgba(0,0,0,0.55);
+    }
+    .char-placeholder::before {
+      content: "✎ ILLUSTRATED\A CARICATURE\A HERE";
+      white-space: pre;
+    }
+
+    /* Bold catchphrase type — outlined + shadow style */
+    .catchphrase {
+      font-family: "Passion One", "Archivo Black", sans-serif;
+      font-weight: 900;
+      line-height: 0.82;
+      letter-spacing: 0.005em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .catchphrase--lg { font-size: 58px; }
+    .catchphrase--md { font-size: 46px; }
+
+    /* Text treatments that mimic the reference */
+    .type-gold-outline {
+      color: var(--ja-gold);
+      -webkit-text-stroke: 2px var(--ja-black);
+      text-shadow:
+        3px 3px 0 var(--ja-black),
+        6px 6px 0 rgba(0,0,0,0.25);
+      paint-order: stroke fill;
+    }
+    .type-green-outline {
+      color: var(--ja-green);
+      -webkit-text-stroke: 2px var(--ja-black);
+      text-shadow:
+        3px 3px 0 var(--ja-black),
+        6px 6px 0 rgba(0,0,0,0.2);
+      paint-order: stroke fill;
+    }
+    .type-cream-outline {
+      color: #EEE4CE;
+      -webkit-text-stroke: 2px var(--ja-black);
+      text-shadow:
+        3px 3px 0 var(--ja-black),
+        6px 6px 0 rgba(0,0,0,0.25);
+      paint-order: stroke fill;
+    }
+    .type-red-outline {
+      color: #E94F3C;
+      -webkit-text-stroke: 2px var(--ja-black);
+      text-shadow:
+        3px 3px 0 var(--ja-black),
+        6px 6px 0 rgba(0,0,0,0.25);
+      paint-order: stroke fill;
+    }
+
+    .tagline {
+      font-family: "Anton", "Archivo Black", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+    .tagline.on-dark  { color: #EEE4CE; }
+    .tagline.on-light { color: var(--ja-black); }
+
+    /* Decorative star */
+    .star-deco {
+      color: var(--ja-gold);
+      font-size: 24px;
+      margin: 4px 0;
+    }
+
+    /* OS badge */
+    .os-badge {
+      font-family: var(--serif);
+      font-style: italic;
+      background: var(--ja-gold);
+      color: var(--ja-black);
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+
+    .design-meta {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .design-meta h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 20px;
+      margin: 0;
+      letter-spacing: -0.005em;
+    }
+    .design-num {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--gold-deep);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .design-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 4px 0 0;
+      line-height: 1.55;
+    }
+
+    .next-steps {
+      background: #fff;
+      padding: 40px;
+      border-radius: 4px;
+      margin: 0 0 60px;
+      border: 1px solid var(--line);
+    }
+    .next-steps h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: -0.015em;
+      margin: 0 0 16px;
+    }
+    .next-steps ol { padding-left: 20px; line-height: 1.75; color: var(--ink-2); font-size: 15px; }
+    .next-steps ol li { margin-bottom: 8px; }
+    .next-steps a { color: var(--gold-deep); text-decoration: underline; }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .back-link:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <span class="mark">OS</span>
+        <span class="wordmark">Oliver Samuels</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#shop">Shop</a></li>
+        <li><a href="index.html#story">Story</a></li>
+        <li><a href="index.html#lookbook">Lookbook</a></li>
+        <li><a href="designs.html" style="color: var(--gold-deep);">Designs</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-cta">Back to site</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="designs-hero">
+    <div class="container">
+      <p class="eyebrow">Design Review · V2 — Illustrated Catchphrase Direction</p>
+      <h1>Bold, vibrant, <em>unmistakably Oliver.</em></h1>
+      <p>Layout + typography mockups for 6 tees in the illustrated-caricature direction. Each concept is built around one of Oliver's famous catchphrases, with space for a custom caricature illustration.</p>
+
+      <div class="direction-note">
+        <strong>⚠ Placeholders, not final art.</strong><br/>
+        The dashed boxes show where illustrated caricatures of Oliver go — those need to be drawn by an illustrator (or generated with an AI image tool). This page is for approving <strong>typography, color, and layout</strong> before commissioning the art. See next steps at the bottom.
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="designs-grid">
+
+      <!-- 01 LARGE & IN CHARGE -->
+      <article>
+        <div class="tee tee--black">
+          <svg class="tee-svg" viewBox="0 0 500 525" preserveAspectRatio="xMidYMid meet">
+            <path class="tee-body" d="M100,60 L185,30 C195,55 230,75 250,75 C270,75 305,55 315,30 L400,60 L460,120 L430,180 L380,160 L380,495 L120,495 L120,160 L70,180 L40,120 Z"/>
+            <path class="tee--stitch" d="M120,160 L120,495 L380,495 L380,160"/>
+            <path class="tee--stitch" d="M185,30 C200,65 235,85 250,85 C265,85 300,65 315,30"/>
+          </svg>
+          <div class="tee-print">
+            <div class="char-placeholder"></div>
+            <span class="catchphrase catchphrase--lg type-gold-outline">Large &<br/>in Charge</span>
+            <span class="tagline on-dark">Oliver Samuels — The Legend</span>
+          </div>
+        </div>
+        <div class="design-meta">
+          <div>
+            <h3>Large &amp; In Charge</h3>
+            <p class="design-desc">The signature catchphrase. Caricature of Oliver with classic wide-eyed look, big gold outlined type, black tee.</p>
+          </div>
+          <span class="design-num">No. 01</span>
+        </div>
+      </article>
+
+      <!-- 02 CAAN BELIEVE ME EYE -->
+      <article>
+        <div class="tee tee--heather">
+          <svg class="tee-svg" viewBox="0 0 500 525" preserveAspectRatio="xMidYMid meet">
+            <path class="tee-body" d="M100,60 L185,30 C195,55 230,75 250,75 C270,75 305,55 315,30 L400,60 L460,120 L430,180 L380,160 L380,495 L120,495 L120,160 L70,180 L40,120 Z"/>
+            <path class="tee--stitch" d="M120,160 L120,495 L380,495 L380,160"/>
+            <path class="tee--stitch" d="M185,30 C200,65 235,85 250,85 C265,85 300,65 315,30"/>
+          </svg>
+          <div class="tee-print">
+            <div class="char-placeholder on-light"></div>
+            <span class="catchphrase catchphrase--md type-gold-outline">Caan Believe<br/>Me Eye!</span>
+            <span class="tagline on-light">Oliver Samuels — Jamaican Comedy Legend</span>
+          </div>
+        </div>
+        <div class="design-meta">
+          <div>
+            <h3>Caan Believe Me Eye!</h3>
+            <p class="design-desc">Heather grey tee, stacked bold type with gold fill + black outline + drop shadow. Caricature in shock expression, colourful shirt.</p>
+          </div>
+          <span class="design-num">No. 02</span>
+        </div>
+      </article>
+
+      <!-- 03 EVERYTHING CRISS -->
+      <article>
+        <div class="tee tee--black">
+          <svg class="tee-svg" viewBox="0 0 500 525" preserveAspectRatio="xMidYMid meet">
+            <path class="tee-body" d="M100,60 L185,30 C195,55 230,75 250,75 C270,75 305,55 315,30 L400,60 L460,120 L430,180 L380,160 L380,495 L120,495 L120,160 L70,180 L40,120 Z"/>
+            <path class="tee--stitch" d="M120,160 L120,495 L380,495 L380,160"/>
+            <path class="tee--stitch" d="M185,30 C200,65 235,85 250,85 C265,85 300,65 315,30"/>
+          </svg>
+          <div class="tee-print">
+            <div class="char-placeholder"></div>
+            <span class="catchphrase catchphrase--lg type-green-outline">Everything<br/>Criss!</span>
+            <span class="tagline on-dark">The King of Jamaican Comedy</span>
+          </div>
+        </div>
+        <div class="design-meta">
+          <div>
+            <h3>Everything Criss!</h3>
+            <p class="design-desc">Big smile caricature, Jamaican green outlined type. Black tee. Classic feel-good Oliver energy.</p>
+          </div>
+          <span class="design-num">No. 03</span>
+        </div>
+      </article>
+
+      <!-- 04 I TRAVEL VERY REGULAR -->
+      <article>
+        <div class="tee tee--blue">
+          <svg class="tee-svg" viewBox="0 0 500 525" preserveAspectRatio="xMidYMid meet">
+            <path class="tee-body" d="M100,60 L185,30 C195,55 230,75 250,75 C270,75 305,55 315,30 L400,60 L460,120 L430,180 L380,160 L380,495 L120,495 L120,160 L70,180 L40,120 Z"/>
+            <path class="tee--stitch" d="M120,160 L120,495 L380,495 L380,160"/>
+            <path class="tee--stitch" d="M185,30 C200,65 235,85 250,85 C265,85 300,65 315,30"/>
+          </svg>
+          <div class="tee-print">
+            <div class="char-placeholder"></div>
+            <span class="catchphrase catchphrase--md type-green-outline">I Travel<br/>Very Regular</span>
+            <span class="tagline on-dark">Oliver Samuels — Global Ambassador</span>
+          </div>
+        </div>
+        <div class="design-meta">
+          <div>
+            <h3>I Travel Very Regular</h3>
+            <p class="design-desc">Traveling Oliver — suit, suitcase, passport vibe. Royal blue tee. Play on his "jet-setting comedian" persona.</p>
+          </div>
+          <span class="design-num">No. 04</span>
+        </div>
+      </article>
+
+      <!-- 05 OLIVER AT LARGE -->
+      <article>
+        <div class="tee tee--gold">
+          <svg class="tee-svg" viewBox="0 0 500 525" preserveAspectRatio="xMidYMid meet">
+            <path class="tee-body" d="M100,60 L185,30 C195,55 230,75 250,75 C270,75 305,55 315,30 L400,60 L460,120 L430,180 L380,160 L380,495 L120,495 L120,160 L70,180 L40,120 Z"/>
+            <path class="tee--stitch" d="M120,160 L120,495 L380,495 L380,160"/>
+            <path class="tee--stitch" d="M185,30 C200,65 235,85 250,85 C265,85 300,65 315,30"/>
+          </svg>
+          <div class="tee-print">
+            <div class="char-placeholder on-light"></div>
+            <span class="catchphrase catchphrase--lg" style="color:var(--ja-green); -webkit-text-stroke: 2px var(--ja-black); text-shadow: 3px 3px 0 var(--ja-black), 6px 6px 0 rgba(0,0,0,0.2); paint-order: stroke fill;">Oliver<br/>At Large</span>
+            <span class="tagline on-light">Since 1948 — Kingston, Jamaica</span>
+          </div>
+        </div>
+        <div class="design-meta">
+          <div>
+            <h3>Oliver At Large</h3>
+            <p class="design-desc">Tribute to his legendary TV show. Gold tee, green outlined type. Hand-drawn TV-set caricature surround optional.</p>
+          </div>
+          <span class="design-num">No. 05</span>
+        </div>
+      </article>
+
+      <!-- 06 BEHOLD! -->
+      <article>
+        <div class="tee tee--red">
+          <svg class="tee-svg" viewBox="0 0 500 525" preserveAspectRatio="xMidYMid meet">
+            <path class="tee-body" d="M100,60 L185,30 C195,55 230,75 250,75 C270,75 305,55 315,30 L400,60 L460,120 L430,180 L380,160 L380,495 L120,495 L120,160 L70,180 L40,120 Z"/>
+            <path class="tee--stitch" d="M120,160 L120,495 L380,495 L380,160"/>
+            <path class="tee--stitch" d="M185,30 C200,65 235,85 250,85 C265,85 300,65 315,30"/>
+          </svg>
+          <div class="tee-print">
+            <div class="char-placeholder"></div>
+            <span class="catchphrase catchphrase--lg type-gold-outline" style="font-size:72px;">Behold!</span>
+            <span class="tagline on-dark">Oliver Samuels — A National Treasure</span>
+          </div>
+        </div>
+        <div class="design-meta">
+          <div>
+            <h3>Behold!</h3>
+            <p class="design-desc">One-word punchy piece. Oliver striking a grand stage pose. Red tee, gold outlined type. Easy quick-read bestseller.</p>
+          </div>
+          <span class="design-num">No. 06</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="next-steps">
+      <h2>Next steps — getting the illustrations done</h2>
+      <ol>
+        <li><strong>Pick 3–4 favourite concepts</strong> from above (catchphrase + tee color combos).</li>
+        <li><strong>Commission a caricature illustrator.</strong> Best options:
+          <ul style="margin-top:8px;">
+            <li><a href="https://www.fiverr.com/categories/graphics-design/cartoons-caricatures" target="_blank" rel="noopener">Fiverr</a> — search "cartoon t-shirt illustration". $50–$200 per design, 3–7 day turnaround.</li>
+            <li><a href="https://www.upwork.com" target="_blank" rel="noopener">Upwork</a> — higher-end illustrators, $200–$600, better for consistent style across a collection.</li>
+            <li><a href="https://99designs.com" target="_blank" rel="noopener">99designs</a> — run a contest, get multiple concepts.</li>
+            <li><strong>Local Jamaican illustrators</strong> — worth finding one authentic to the culture (Instagram hashtags: #jamaicanart #caribbeanillustrator).</li>
+          </ul>
+        </li>
+        <li><strong>Brief to give the illustrator:</strong> send them this page + 3–4 of Oliver's reference photos. Specify: vector style, bold outlines, vibrant Jamaican colors, consistent character across all pieces, transparent PNG + SVG deliverables.</li>
+        <li><strong>Alternative (faster, cheaper, lower quality):</strong> use Midjourney / DALL-E to generate caricatures (~$10/month subscription). Results are inconsistent character-to-character — OK for a single shirt, risky for a collection.</li>
+        <li>Once illustrations are in, I'll drop them into these exact layouts and we'll have production-ready mockups in an afternoon.</li>
+      </ol>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to the site</a>
+  </div>
+
+  <footer class="footer" style="margin-top: 40px;">
+    <div class="footer-bottom container" style="border-top: 1px solid rgba(245,241,234,0.12); padding-top: 28px;">
+      <span>© 2026 Oliver Samuels. All rights reserved.</span>
+      <span>Design review — not for public distribution.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
