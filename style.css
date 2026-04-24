@@ -333,6 +333,13 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; col
 .product:hover .product-media {
   box-shadow: 0 20px 40px -20px rgba(45,35,20,0.25);
 }
+.product-media--photo   { padding: 0; }
+.product-media--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 .product-media--sand    { background: var(--sand); }
 .product-media--cream   { background: #EFE7D4; }
 .product-media--black   { background: #1A1A1A; color: #EDE6D8; }
