@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journal · Oliver Samuels</title>
+  <meta name="description" content="Stay in the loop. Drops, restocks, and stories from the Oliver Samuels archive." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="announce">
+    <span>Free shipping across Jamaica on orders over $10,000 JMD · Worldwide delivery available</span>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <span class="mark">OS</span>
+        <span class="wordmark">Oliver Samuels</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="story.html">Story</a></li>
+        <li><a href="lookbook.html">Lookbook</a></li>
+        <li><a href="journal.html" class="active">Journal</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="shop.html" class="nav-cta">Cart · <span id="cartCount">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- JOURNAL -->
+  <section id="journal" class="journal journal--page">
+    <div class="container journal-inner">
+      <div>
+        <p class="eyebrow light">Stay in the loop</p>
+        <h1 class="page-title light">First dibs on drops,<br/><em>no noise.</em></h1>
+        <p class="light-sub">Subscribe for early access to new collections, restocks, and stories from the Oliver Samuels archive.</p>
+      </div>
+      <form class="signup" id="signupForm">
+        <input type="email" placeholder="your@email.com" required aria-label="Email address" />
+        <button type="submit">Subscribe</button>
+        <p class="signup-note" id="signupNote"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- JOURNAL ENTRIES (placeholder) -->
+  <section class="entries">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">From the archive</p>
+        <h2 class="section-title">Notes &amp; <em>dispatches.</em></h2>
+      </div>
+      <div class="entry-grid">
+        <article class="entry">
+          <div class="entry-img"><img src="images/portrait-laugh.jpeg" alt="" /></div>
+          <p class="entry-meta">May 2024 · Behind the Shoot</p>
+          <h3>A morning in Kingston</h3>
+          <p>How the Spring / Summer portraits came together — analog film, no rush, the laughs you'd expect.</p>
+        </article>
+        <article class="entry">
+          <div class="entry-img"><img src="images/portrait-warm.jpeg" alt="" /></div>
+          <p class="entry-meta">April 2024 · Heritage</p>
+          <h3>On the catchphrase</h3>
+          <p>"Large &amp; in Charge" started as an off-the-cuff line. Five decades later, it's still the one people quote.</p>
+        </article>
+        <article class="entry">
+          <div class="entry-img"><img src="images/portrait-pensive.jpeg" alt="" /></div>
+          <p class="entry-meta">March 2024 · Craft</p>
+          <h3>Why heavyweight cotton</h3>
+          <p>Notes on the cloth, the cut, and why pieces should outlast a season.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="mark big">OS</span>
+        <p>The official merch collection of Jamaica's King of Comedy.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="shop.html">Tees</a>
+        <a href="shop.html">Hoodies</a>
+        <a href="shop.html">Caps</a>
+        <a href="shop.html">All</a>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">YouTube</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <span>© 2026 Oliver Samuels. All rights reserved.</span>
+      <span>Designed in Kingston, Jamaica.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
