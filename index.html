@@ -3,154 +3,534 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oliver Samuels — Heritage Merch</title>
-  <meta name="description" content="The official merch collection of Jamaican comedy icon Oliver Samuels. Heritage-inspired tees, hoodies, and caps." />
+  <title>Oliver Samuels — Fifty Years of Laughter, Worn Well.</title>
+  <meta name="description" content="The official merch collection of Jamaica's King of Comedy. Fifty years of laughter, worn well." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:  #050F08;
+      --gold-deep:   #6B4A00;
+      --gold-dark:   #8C6300;
+      --gold:        #C08928;
+      --gold-mid:    #D9A23A;
+      --gold-light:  #E8BE52;
+      --gold-bright: #F4D26A;
+      --gold-pale:   #F8E59A;
+      --gold-cream:  #FFF1B8;
+      --cream:       #FAF5E9;
+      --ink:         #1A1208;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      /* Matches shop.html's cream so there's no dark flash
+         between the curtains parting and the next page rendering. */
+      background: #F5F1EA;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      position: relative;
+    }
+
+    /* ── STAGE: holds curtains + iframe shop reveal ─────────── */
+    .stage {
+      position: fixed; inset: 0;
+      overflow: hidden;
+    }
+
+    /* The shop iframe sits behind the curtains */
+    .shop-frame {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
+      opacity: 0;
+      transition: opacity 0.35s ease 0.15s;
+      background: #050F08;
+    }
+    .stage.opening .shop-frame,
+    .stage.open .shop-frame { opacity: 1; }
+
+    /* ── CURTAINS ─────────────────────────────── */
+    .curtain {
+      position: absolute; top: 0; bottom: 0;
+      width: 50.6%;  /* tiny overlap to avoid hairline gap */
+      z-index: 5;
+      will-change: transform;
+      transition: transform 1.55s cubic-bezier(0.78, 0, 0.18, 1);
+      box-shadow: 0 0 60px rgba(0,0,0,0.5);
+    }
+    .curtain-left {
+      left: 0;
+      background:
+        /* subtle vertical sheen near the seam */
+        linear-gradient(90deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0) 80%,
+          rgba(255,245,200,0.35) 96%,
+          rgba(255,250,220,0.55) 100%
+        ),
+        /* black → deep green → olive → warm yellow (softer, less brash) */
+        linear-gradient(92deg,
+          #000000 0%,
+          #02100A 6%,
+          #04190E 14%,
+          #082414 24%,
+          #103018 36%,
+          #2A3D14 46%,
+          #5A5410 58%,
+          #8C7A18 68%,
+          #B89A28 78%,
+          #D9B844 88%,
+          #EAD06A 96%,
+          #F2DC82 100%
+        );
+    }
+    .curtain-right {
+      right: 0;
+      background:
+        linear-gradient(90deg,
+          rgba(255,250,220,0.55) 0%,
+          rgba(255,245,200,0.35) 4%,
+          rgba(255,255,255,0) 20%,
+          rgba(255,255,255,0) 100%
+        ),
+        linear-gradient(-92deg,
+          #000000 0%,
+          #02100A 6%,
+          #04190E 14%,
+          #082414 24%,
+          #103018 36%,
+          #2A3D14 46%,
+          #5A5410 58%,
+          #8C7A18 68%,
+          #B89A28 78%,
+          #D9B844 88%,
+          #EAD06A 96%,
+          #F2DC82 100%
+        );
+    }
+
+    /* Vertical metallic streaks for premium texture */
+    .curtain::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(90deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,241,184,0.10) 18%,
+          rgba(255,255,255,0) 22%,
+          rgba(120,80,0,0.08) 38%,
+          rgba(255,255,255,0) 42%,
+          rgba(255,241,184,0.06) 58%,
+          rgba(255,255,255,0) 64%,
+          rgba(120,80,0,0.05) 78%,
+          rgba(255,255,255,0) 84%
+        );
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* Grain over the curtains */
+    .curtain::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.07; mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    /* Curtain animation */
+    .stage.opening .curtain-left  { transform: translateX(-101%); }
+    .stage.opening .curtain-right { transform: translateX(101%); }
+    .stage.open    .curtain-left  { transform: translateX(-101%); }
+    .stage.open    .curtain-right { transform: translateX(101%); }
+
+    /* ── ENTRY CONTENT (sits on top of both curtains) ─── */
+    .entry {
+      position: absolute; inset: 0;
+      z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: space-between;
+      padding: 56px 60px 56px;
+      pointer-events: none;
+      transition: opacity 0.55s ease, transform 0.6s ease;
+    }
+    .entry > * { pointer-events: auto; }
+
+    .stage.opening .entry,
+    .stage.open    .entry {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+
+    /* Top bar */
+    .entry-top {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      opacity: 0; animation: fadeDown 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .brand-mark {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .brand-mark img {
+      width: 46px; height: 46px; border-radius: 50%;
+      box-shadow: 0 4px 14px rgba(40,25,0,0.25), 0 0 0 1px rgba(40,25,0,0.15);
+    }
+    .brand-words {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; font-weight: 400; line-height: 1.1;
+      color: var(--gold-cream);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.45);
+    }
+    .brand-words small {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: rgba(255,241,184,0.72);
+      margin-top: 4px;
+    }
+    .anniversary {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold-cream);
+      display: flex; align-items: center; gap: 12px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.45);
+    }
+    .anniversary::before, .anniversary::after {
+      content: ''; display: block; width: 22px; height: 1px;
+      background: rgba(255,241,184,0.55);
+    }
+
+    /* Center content */
+    .entry-center {
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.42em; text-transform: uppercase;
+      color: #0A0600;
+      margin-bottom: 38px;
+      display: inline-flex; align-items: center; gap: 14px;
+      opacity: 0; animation: fadeUp 0.9s 0.25s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: ''; display: block; width: 30px; height: 1px;
+      background: rgba(10,6,0,0.55);
+    }
+
+    h1.headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: clamp(52px, 7.4vw, 124px);
+      line-height: 0.94;
+      letter-spacing: -0.018em;
+      color: #0A0600;
+      margin-bottom: 18px;
+      max-width: 14ch;
+      text-wrap: balance;
+      opacity: 0; animation: fadeUp 1s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    h1.headline em {
+      font-style: italic;
+      font-weight: 500;
+      color: #1F1500;
+      -webkit-text-fill-color: #1F1500;
+    }
+
+    .sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px; font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(10,6,0,0.78);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+      opacity: 0; animation: fadeUp 1s 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    /* SHARP NOW button — sharp corners, premium ink-on-gold */
+    .shop-now {
+      display: inline-flex; align-items: center; gap: 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold-cream);
+      background: var(--ink);
+      padding: 22px 48px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      box-shadow:
+        0 2px 0 rgba(26,18,8,0.18),
+        0 18px 48px -12px rgba(26,18,8,0.55),
+        inset 0 0 0 1px rgba(255,241,184,0.08);
+      transition: transform 0.18s ease, box-shadow 0.25s ease, letter-spacing 0.25s ease;
+      opacity: 0; animation: fadeUp 1s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+      /* Sharp corners explicitly */
+      border-radius: 0;
+    }
+    .shop-now:hover {
+      transform: translateY(-2px);
+      letter-spacing: 0.36em;
+      box-shadow:
+        0 2px 0 rgba(26,18,8,0.18),
+        0 26px 60px -12px rgba(26,18,8,0.7),
+        inset 0 0 0 1px rgba(255,241,184,0.18);
+    }
+    .shop-now:active { transform: translateY(0); }
+    .shop-now .arrow {
+      width: 18px; height: 10px;
+      position: relative;
+    }
+    .shop-now .arrow::before,
+    .shop-now .arrow::after {
+      content: ''; position: absolute; background: var(--gold-cream);
+    }
+    .shop-now .arrow::before {
+      left: 0; top: 50%; width: 100%; height: 1.5px;
+      transform: translateY(-50%);
+    }
+    .shop-now .arrow::after {
+      right: 0; top: 50%; width: 9px; height: 9px;
+      border-top: 1.5px solid var(--gold-cream);
+      border-right: 1.5px solid var(--gold-cream);
+      background: none;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    /* Bottom bar */
+    .entry-bottom {
+      width: 100%;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: rgba(250,245,233,0.7);
+      opacity: 0; animation: fadeUp 0.9s 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.45);
+    }
+    .entry-bottom .left,
+    .entry-bottom .right {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .entry-bottom .right { text-align: right; align-items: flex-end; }
+    .entry-bottom strong {
+      font-weight: 700; color: var(--gold-cream);
+      font-size: 10.5px; letter-spacing: 0.3em;
+    }
+    .entry-bottom em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 400;
+      font-size: 14px; letter-spacing: 0.04em; text-transform: none;
+      color: var(--cream);
+    }
+
+    /* Center seam (hairline crack between curtains while closed) */
+    .seam {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 1px;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(26,18,8,0.18) 18%,
+        rgba(26,18,8,0.32) 50%,
+        rgba(26,18,8,0.18) 82%,
+        transparent 100%);
+      transform: translateX(-0.5px);
+      z-index: 6;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .stage.opening .seam,
+    .stage.open    .seam { opacity: 0; }
+
+    /* Light bloom from the seam when curtains start to open */
+    .seam-bloom {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 0; transform: translateX(-50%);
+      z-index: 4;
+      background: radial-gradient(ellipse 50% 60% at 50% 50%,
+        rgba(255,255,255,0.85) 0%,
+        rgba(255,241,184,0.4) 30%,
+        transparent 70%);
+      opacity: 0;
+      transition: width 1.2s cubic-bezier(0.78,0,0.18,1) 0.15s,
+                  opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .stage.opening .seam-bloom {
+      width: 30%;
+      opacity: 1;
+    }
+
+    /* Re-close hint button (shown after open) */
+    .reclose {
+      position: fixed; top: 14px; right: 14px;
+      z-index: 50;
+      background: rgba(5,15,8,0.85);
+      backdrop-filter: blur(8px);
+      color: var(--gold-light);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9.5px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 10px 16px;
+      border: 1px solid rgba(228,175,66,0.3);
+      cursor: pointer;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease 1.6s;
+    }
+    .stage.open .reclose {
+      opacity: 1; pointer-events: auto;
+    }
+    .reclose:hover { background: rgba(5,15,8,1); border-color: var(--gold-light); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .entry { padding: 28px 22px; }
+      .entry-bottom { font-size: 8.5px; letter-spacing: 0.18em; gap: 10px; }
+      .entry-bottom em { font-size: 11px; }
+      .anniversary { font-size: 8.5px; letter-spacing: 0.22em; }
+      .anniversary::before, .anniversary::after { width: 14px; }
+      .shop-now { padding: 18px 32px; font-size: 11.5px; letter-spacing: 0.26em; }
+      .eyebrow { font-size: 9.5px; letter-spacing: 0.32em; margin-bottom: 24px; }
+      .eyebrow::before, .eyebrow::after { width: 18px; }
+      .sub { font-size: 12px; margin-bottom: 36px; }
+      .brand-mark img { width: 38px; height: 38px; }
+      .brand-words { font-size: 16px; }
+
+      /* Mobile readability — the curtain gradient compresses on narrow
+         viewports so dark ink text washes into the green zones.
+         Switch to warm cream + shadow so the copy reads clearly. */
+      h1.headline,
+      h1.headline em {
+        color: var(--gold-cream);
+        -webkit-text-fill-color: var(--gold-cream);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 2px 14px rgba(0,0,0,0.35);
+      }
+      .sub {
+        color: rgba(255,241,184,0.92);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.55);
+      }
+      .eyebrow {
+        color: var(--gold-cream);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      }
+      .eyebrow::before, .eyebrow::after {
+        background: rgba(255,241,184,0.6);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ANNOUNCEMENT BAR -->
-  <div class="announce">
-    <span>Free shipping across Jamaica on orders over $10,000 JMD · Worldwide delivery available</span>
+  <div class="stage" id="stage">
+
+    <!-- Bloom of light from the seam as it opens -->
+    <div class="seam-bloom"></div>
+
+    <!-- The two gold curtains -->
+    <div class="curtain curtain-left"></div>
+    <div class="curtain curtain-right"></div>
+
+    <!-- Hairline seam (visible only while closed) -->
+    <div class="seam"></div>
+
+    <!-- Entry content -->
+    <div class="entry" id="entry">
+      <div class="entry-top">
+        <div class="brand-mark">
+          <img src="assets/logo.png" alt="Oliver Samuels" />
+          <div class="brand-words" style="color: rgb(255, 211, 144)">
+            Oliver Samuels
+            <small>Official Collection</small>
+          </div>
+        </div>
+        <div class="anniversary" style="color: rgb(246, 233, 213)">50 Years · Est. 1976</div>
+      </div>
+
+      <div class="entry-center">
+        <div class="eyebrow">The Heritage Capsule · Spring / Summer No. 01</div>
+
+        <h1 class="headline">
+          Fifty years of laughter,<br><em>worn well.</em>
+        </h1>
+
+        <p class="sub">
+          A limited capsule honouring Jamaica's most beloved storyteller.
+          Heavyweight cotton. Rooted in island heritage.
+        </p>
+
+        <button class="shop-now" id="shopNow" aria-label="Open the shop">
+          Shop Now
+          <span class="arrow" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="entry-bottom">
+        <div class="left">
+          <strong>King of Comedy</strong>
+          <em>Kingston · Jamaica</em>
+        </div>
+        <div class="right">
+          <strong>Vol. 01</strong>
+          <em>The Collection, 2026</em>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- NAV -->
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a class="nav-logo" href="index.html">
-        <span class="mark">OS</span>
-        <span class="wordmark">Oliver Samuels</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="story.html">Story</a></li>
-        <li><a href="lookbook.html">Lookbook</a></li>
-        <li><a href="journal.html">Journal</a></li>
-      </ul>
-      <div class="nav-actions">
-        <a href="shop.html" class="nav-cta">Cart · <span id="cartCount">0</span></a>
-      </div>
-    </div>
-  </nav>
+  <script>
+    const stage   = document.getElementById('stage');
+    const shopNow = document.getElementById('shopNow');
 
-  <!-- HERO -->
-  <section id="top" class="hero hero--landing">
-    <div class="hero-grid">
-      <div class="hero-text">
-        <p class="eyebrow">The Spring / Summer Collection</p>
-        <h1 class="hero-title">Fifty years<br/>of laughter,<br/><em>worn well.</em></h1>
-        <p class="hero-sub">A limited capsule honouring Jamaica's most beloved storyteller. Crafted from heavyweight cotton. Rooted in island heritage.</p>
-        <div class="hero-actions">
-          <a href="shop.html" class="btn btn-primary">Shop the collection</a>
-          <a href="story.html" class="btn btn-ghost">Read the story →</a>
-        </div>
-      </div>
-      <div class="hero-media">
-        <div class="hero-photo">
-          <img src="images/hero.jpeg" alt="Oliver Samuels portrait" />
-        </div>
-        <div class="hero-caption">
-          <span class="caption-no">No. 01</span>
-          <span class="caption-txt">Portrait series — Kingston, May 2024</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    // Prefetch the shop page so it's already in cache by the time
+    // the curtains finish — eliminates any blank flash on slow networks.
+    const prefetch = document.createElement('link');
+    prefetch.rel = 'prefetch';
+    prefetch.href = 'shop.html';
+    document.head.appendChild(prefetch);
 
-  <!-- MARQUEE -->
-  <div class="marquee">
-    <div class="marquee-track">
-      <span>Heritage Tees</span><span aria-hidden="true">✦</span>
-      <span>Heavyweight Hoodies</span><span aria-hidden="true">✦</span>
-      <span>Signature Caps</span><span aria-hidden="true">✦</span>
-      <span>Made in Jamaica</span><span aria-hidden="true">✦</span>
-      <span>Heritage Tees</span><span aria-hidden="true">✦</span>
-      <span>Heavyweight Hoodies</span><span aria-hidden="true">✦</span>
-      <span>Signature Caps</span><span aria-hidden="true">✦</span>
-      <span>Made in Jamaica</span><span aria-hidden="true">✦</span>
-    </div>
-  </div>
+    // Curtain reveal animation, then route to the shop.
+    function openCurtains() {
+      if (stage.classList.contains('opening') || stage.classList.contains('open')) return;
+      stage.classList.add('opening');
+      // Navigate slightly before the 1.55s curtain transition fully ends so
+      // the new page replaces the curtains in motion — no dark pause.
+      setTimeout(() => {
+        window.location.href = 'shop.html';
+      }, 1300);
+    }
 
-  <!-- EXPLORE TILES -->
-  <section class="explore">
-    <div class="container">
-      <div class="explore-grid">
-        <a class="explore-tile" href="shop.html">
-          <div class="explore-img"><img src="images/design-travel-white.jpg" alt="Shop the collection" /></div>
-          <div class="explore-meta">
-            <p class="eyebrow">01 · Shop</p>
-            <h3>The Collection</h3>
-            <p>Tees, hoodies, caps — all the pieces.</p>
-          </div>
-        </a>
-        <a class="explore-tile" href="story.html">
-          <div class="explore-img"><img src="images/story.jpeg" alt="Read the story" /></div>
-          <div class="explore-meta">
-            <p class="eyebrow">02 · Story</p>
-            <h3>A wardrobe with a voice</h3>
-            <p>Fifty years on stage, woven into cotton.</p>
-          </div>
-        </a>
-        <a class="explore-tile" href="lookbook.html">
-          <div class="explore-img"><img src="images/lookbook-1.jpeg" alt="Browse the lookbook" /></div>
-          <div class="explore-meta">
-            <p class="eyebrow">03 · Lookbook</p>
-            <h3>On him, off stage</h3>
-            <p>Portraits from the Spring / Summer shoot.</p>
-          </div>
-        </a>
-        <a class="explore-tile" href="journal.html">
-          <div class="explore-img explore-img--dark">
-            <span class="explore-glyph">✦</span>
-          </div>
-          <div class="explore-meta">
-            <p class="eyebrow">04 · Journal</p>
-            <h3>Stay in the loop</h3>
-            <p>Drops, restocks, and stories from the archive.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
+    shopNow.addEventListener('click', openCurtains);
+    shopNow.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCurtains(); }
+    });
+  </script>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <span class="mark big">OS</span>
-        <p>The official merch collection of Jamaica's King of Comedy.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <a href="shop.html">Tees</a>
-        <a href="shop.html">Hoodies</a>
-        <a href="shop.html">Caps</a>
-        <a href="shop.html">All</a>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <a href="#">Shipping</a>
-        <a href="#">Returns</a>
-        <a href="#">Size Guide</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Follow</h4>
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-        <a href="#">YouTube</a>
-        <a href="#">TikTok</a>
-      </div>
-    </div>
-    <div class="footer-bottom container">
-      <span>© 2026 Oliver Samuels. All rights reserved.</span>
-      <span>Designed in Kingston, Jamaica.</span>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>

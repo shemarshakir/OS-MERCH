@@ -1,3 +1,5 @@
+# Design handoff reference — kept locally, not deployed
+ENTRY GATE/
+
+# OS
 .DS_Store
-node_modules/
-*.log
