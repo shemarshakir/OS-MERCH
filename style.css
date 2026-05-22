@@ -421,6 +421,9 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; col
 .product:hover .product-media {
   box-shadow: 0 20px 40px -20px rgba(45,35,20,0.25);
 }
+.product-buy { margin-top: 14px; }
+.product-buy iframe { width: 100% !important; }
+
 .product-media--photo   { padding: 0; }
 .product-media--photo img {
   width: 100%;
