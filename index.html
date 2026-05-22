@@ -3,227 +3,295 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shop · Oliver Samuels</title>
-  <meta name="description" content="Shop the Oliver Samuels heritage collection — tees, hoodies, and caps. Made in Jamaica." />
+  <title>Oliver Samuels — The Collection · Coming Soon</title>
+  <meta name="description" content="The official Oliver Samuels merch collection. Fifty years of laughter, worn well. Launching soon — sign up for first access." />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta property="og:title" content="Oliver Samuels — The Collection" />
+  <meta property="og:description" content="Fifty years of laughter, worn well. Launching soon." />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F5F1EA;
+      --cream-2: #EDE6D8;
+      --ink: #1A1A1A;
+      --muted: #6B5E4E;
+      --line: #D9CFBC;
+      --gold-deep: #8E6E44;
+      --ja-green: #1E5A2A;
+      --ja-green-deep: #0F3A1A;
+      --ja-gold: #E9B949;
+      --ja-gold-deep: #B88321;
+
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(900px 600px at 12% 15%, rgba(30,90,42,0.18) 0%, rgba(30,90,42,0) 60%),
+        radial-gradient(1000px 700px at 92% 88%, rgba(233,185,73,0.22) 0%, rgba(233,185,73,0) 65%),
+        linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: -1;
+      background-image: radial-gradient(rgba(26,26,26,0.045) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: 0.4;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 36px clamp(20px, 5vw, 60px);
+    }
+
+    /* Top brand */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      letter-spacing: .02em;
+    }
+    .mark {
+      display: inline-grid;
+      place-items: center;
+      width: 38px; height: 38px;
+      border: 1px solid var(--ink);
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .04em;
+    }
+    .wordmark {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    /* Center hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 0;
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: "";
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold-deep);
+      opacity: 0.55;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(44px, 6.4vw, 84px);
+      line-height: 1.0;
+      letter-spacing: -0.018em;
+      margin-bottom: 22px;
+      color: var(--ink);
+    }
+    h1 em {
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(135deg, var(--ja-gold-deep) 0%, var(--ja-green) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--ja-gold-deep);
+    }
+
+    .sub {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 32px;
+    }
+
+    .status {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--ja-green);
+      margin-bottom: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .status::before, .status::after {
+      content: "✦";
+      color: var(--ja-gold);
+      font-style: normal;
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* Email signup */
+    .signup {
+      display: flex;
+      gap: 8px;
+      background: rgba(26,26,26,0.04);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px;
+      max-width: 460px;
+      width: 100%;
+      align-items: center;
+    }
+    .signup input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: 0;
+      outline: 0;
+      color: var(--ink);
+      padding: 12px 18px;
+      font-size: 14.5px;
+      font-family: var(--sans);
+    }
+    .signup input::placeholder { color: rgba(26,26,26,0.45); }
+    .signup button {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 12px 26px;
+      border: 0;
+      border-radius: 999px;
+      font-family: var(--sans);
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background .25s ease, transform .25s ease;
+    }
+    .signup button:hover {
+      background: linear-gradient(135deg, var(--ja-green-deep) 0%, var(--ja-green) 60%, var(--ja-gold-deep) 100%);
+      transform: translateY(-1px);
+    }
+    .signup-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+      letter-spacing: 0.04em;
+      transition: color .25s ease;
+    }
+
+    /* Footer */
+    .foot {
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: rgba(26,26,26,0.45);
+    }
+    .foot strong {
+      display: block;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 10.5px;
+    }
+
+    @media (max-width: 560px) {
+      .page { padding: 28px 22px; }
+      .hero { padding: 32px 0; }
+      .eyebrow { font-size: 10px; letter-spacing: 0.22em; margin-bottom: 24px; }
+      .eyebrow::before, .eyebrow::after { width: 18px; }
+      .status { font-size: 16px; margin-bottom: 36px; }
+      .signup { flex-direction: column; border-radius: 16px; padding: 8px; gap: 6px; }
+      .signup input { width: 100%; text-align: center; }
+      .signup button { width: 100%; }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="announce">
-    <span>Free shipping across Jamaica on orders over $10,000 JMD · Worldwide delivery available</span>
-  </div>
+  <main class="page">
 
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a class="nav-logo" href="index.html">
-        <span class="mark">OS</span>
-        <span class="wordmark">Oliver Samuels</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Shop</a></li>
-        <li><a href="story.html">Story</a></li>
-        <li><a href="lookbook.html">Lookbook</a></li>
-        <li><a href="journal.html">Journal</a></li>
-      </ul>
-      <div class="nav-actions">
-        <a href="index.html" class="nav-cta">Cart · <span id="cartCount">0</span></a>
-      </div>
-    </div>
-  </nav>
+    <header class="brand">
+      <span class="mark">OS</span>
+      <span class="wordmark">Oliver Samuels</span>
+    </header>
 
-  <!-- PAGE HEADER -->
-  <header class="page-head">
-    <div class="container">
+    <section class="hero">
       <p class="eyebrow">The Collection</p>
-      <h1 class="page-title">Pieces made to last, <em>like the laughs</em>.</h1>
-      <p class="page-sub">Heritage tees, heavyweight hoodies, and signature caps — all designed in Kingston.</p>
-    </div>
-  </header>
+      <h1>Fifty years<br/>of laughter,<br/><em>worn well.</em></h1>
+      <p class="sub">The official Oliver Samuels merch collection. Heritage tees, heavyweight hoodies, and signature caps — made in Jamaica.</p>
+      <p class="status">Launching soon</p>
 
-  <!-- SHOP -->
-  <section id="shop" class="shop">
-    <div class="container">
-      <div class="shop-toolbar">
-        <div class="filters">
-          <button class="filter active" data-filter="all">All</button>
-          <button class="filter" data-filter="tees">Tees</button>
-          <button class="filter" data-filter="hoodies">Hoodies</button>
-          <button class="filter" data-filter="caps">Caps</button>
-        </div>
-      </div>
+      <form class="signup" onsubmit="handleSubmit(event)">
+        <input type="email" placeholder="your@email.com" required aria-label="Email address" />
+        <button type="submit">Notify Me</button>
+      </form>
+      <p class="signup-note" id="signupNote">First access. No noise.</p>
+    </section>
 
-      <div class="product-grid" id="productGrid">
-        <!-- TEES -->
-        <article class="product" data-cat="tees" data-product-id="7736760041681">
-          <div class="product-media product-media--photo product-media--cream">
-            <img src="images/design-travel-white.jpg" alt="I Travel Regula Tee — White" />
-            <span class="tag">New</span>
-          </div>
-          <div class="product-info">
-            <h3>"I Travel Regula" Tee</h3>
-            <p class="product-meta">White · Heavyweight cotton</p>
-            <p class="product-price">$4,500 JMD</p>
-            <div class="product-buy"></div>
-          </div>
-        </article>
+    <footer class="foot">
+      <strong>Coming Soon — 2026</strong>
+      © Oliver Samuels · Kingston, Jamaica
+    </footer>
+  </main>
 
-        <article class="product" data-cat="tees" data-product-id="PLACEHOLDER_TEE_2">
-          <div class="product-media product-media--photo product-media--cream">
-            <img src="images/travel-design-tee.jpeg" alt="I Travel Very Regula Tee — Black" />
-            <span class="tag">Limited</span>
-          </div>
-          <div class="product-info">
-            <h3>"I Travel Very Regula" Tee</h3>
-            <p class="product-meta">Black · Heavyweight cotton</p>
-            <p class="product-price">$5,500 JMD</p>
-          </div>
-        </article>
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const note = document.getElementById('signupNote');
+      const email = form.querySelector('input').value.trim();
+      if (!email || !email.includes('@')) return;
+      // TODO: before launch, wire this to Mailchimp / Klaviyo / Shopify customer signup.
+      // For now it just confirms locally so we capture the intent visually.
+      note.textContent = "Thanks — we'll be in touch at launch.";
+      note.style.color = 'var(--ja-green)';
+      form.style.opacity = '0.55';
+      form.querySelector('input').disabled = true;
+      form.querySelector('button').disabled = true;
+    }
+  </script>
 
-        <article class="product" data-cat="tees" data-product-id="PLACEHOLDER_TEE_3">
-          <div class="product-media product-media--olive">
-            <div class="product-graphic light">
-              <span class="graphic-script">Large &amp; in Charge</span>
-              <span class="graphic-line">— a classic line —</span>
-            </div>
-          </div>
-          <div class="product-info">
-            <h3>Catchphrase Tee</h3>
-            <p class="product-meta">Olive · Heavyweight cotton</p>
-            <p class="product-price">$4,800 JMD</p>
-          </div>
-        </article>
-
-        <!-- HOODIES -->
-        <article class="product" data-cat="hoodies" data-product-id="PLACEHOLDER_HOODIE_1">
-          <div class="product-media product-media--cream">
-            <div class="product-graphic hoodie">
-              <span class="graphic-big">OS</span>
-              <span class="graphic-line">— the collection —</span>
-            </div>
-            <span class="tag">Limited</span>
-          </div>
-          <div class="product-info">
-            <h3>Signature Heavyweight Hoodie</h3>
-            <p class="product-meta">Cream · Brushed fleece</p>
-            <p class="product-price">$12,000 JMD</p>
-          </div>
-        </article>
-
-        <article class="product" data-cat="hoodies" data-product-id="PLACEHOLDER_HOODIE_2">
-          <div class="product-media product-media--green">
-            <div class="product-graphic hoodie light">
-              <span class="graphic-script">Oliver</span>
-              <span class="graphic-line">Samuels Collection</span>
-            </div>
-          </div>
-          <div class="product-info">
-            <h3>Heritage Pullover Hoodie</h3>
-            <p class="product-meta">Forest · Brushed fleece</p>
-            <p class="product-price">$12,000 JMD</p>
-          </div>
-        </article>
-
-        <article class="product" data-cat="hoodies" data-product-id="PLACEHOLDER_HOODIE_3">
-          <div class="product-media product-media--charcoal">
-            <div class="product-graphic hoodie light">
-              <span class="graphic-big">50</span>
-              <span class="graphic-line">Years of Laughter</span>
-            </div>
-          </div>
-          <div class="product-info">
-            <h3>Fifty Years Anniversary Hoodie</h3>
-            <p class="product-meta">Charcoal · Brushed fleece</p>
-            <p class="product-price">$13,500 JMD</p>
-          </div>
-        </article>
-
-        <!-- CAPS -->
-        <article class="product" data-cat="caps" data-product-id="PLACEHOLDER_CAP_1">
-          <div class="product-media product-media--sand">
-            <div class="cap-shape">
-              <div class="cap-crown"></div>
-              <div class="cap-brim"></div>
-              <span class="cap-badge">OS</span>
-            </div>
-          </div>
-          <div class="product-info">
-            <h3>Monogram Dad Cap</h3>
-            <p class="product-meta">Sand · Brushed twill</p>
-            <p class="product-price">$3,800 JMD</p>
-          </div>
-        </article>
-
-        <article class="product" data-cat="caps" data-product-id="PLACEHOLDER_CAP_2">
-          <div class="product-media product-media--black">
-            <div class="cap-shape">
-              <div class="cap-crown dark"></div>
-              <div class="cap-brim dark"></div>
-              <span class="cap-badge light">Oliver</span>
-            </div>
-          </div>
-          <div class="product-info">
-            <h3>Script Logo Cap</h3>
-            <p class="product-meta">Black · Brushed twill</p>
-            <p class="product-price">$3,800 JMD</p>
-          </div>
-        </article>
-
-        <article class="product" data-cat="caps" data-product-id="PLACEHOLDER_CAP_3">
-          <div class="product-media product-media--olive">
-            <div class="cap-shape">
-              <div class="cap-crown olive"></div>
-              <div class="cap-brim olive"></div>
-              <span class="cap-badge light">JA</span>
-            </div>
-            <span class="tag">New</span>
-          </div>
-          <div class="product-info">
-            <h3>Island Cap</h3>
-            <p class="product-meta">Olive · Brushed twill</p>
-            <p class="product-price">$3,800 JMD</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <span class="mark big">OS</span>
-        <p>The official merch collection of Jamaica's King of Comedy.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <a href="index.html">Tees</a>
-        <a href="index.html">Hoodies</a>
-        <a href="index.html">Caps</a>
-        <a href="index.html">All</a>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <a href="#">Shipping</a>
-        <a href="#">Returns</a>
-        <a href="#">Size Guide</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Follow</h4>
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-        <a href="#">YouTube</a>
-        <a href="#">TikTok</a>
-      </div>
-    </div>
-    <div class="footer-bottom container">
-      <span>© 2026 Oliver Samuels. All rights reserved.</span>
-      <span>Designed in Kingston, Jamaica.</span>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
