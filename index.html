@@ -11,268 +11,144 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style-v2.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream: #F5F1EA;
-      --cream-2: #EDE6D8;
-      --ink: #1A1A1A;
-      --muted: #6B5E4E;
-      --line: #D9CFBC;
-      --gold-deep: #8E6E44;
-      --ja-green: #1E5A2A;
-      --ja-green-deep: #0F3A1A;
-      --ja-gold: #E9B949;
-      --ja-gold-deep: #B88321;
-
-      --serif: 'Fraunces', Georgia, serif;
-      --sans: 'Inter', system-ui, sans-serif;
-    }
-
-    html, body {
-      width: 100%;
-      min-height: 100vh;
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      background:
-        radial-gradient(900px 600px at 12% 15%, rgba(30,90,42,0.18) 0%, rgba(30,90,42,0) 60%),
-        radial-gradient(1000px 700px at 92% 88%, rgba(233,185,73,0.22) 0%, rgba(233,185,73,0) 65%),
-        linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
-    }
-    body::before {
-      content: "";
-      position: fixed; inset: 0; z-index: -1;
-      background-image: radial-gradient(rgba(26,26,26,0.045) 1px, transparent 1px);
-      background-size: 3px 3px;
-      opacity: 0.4;
-      pointer-events: none;
-      mix-blend-mode: multiply;
-    }
-
-    .page {
-      min-height: 100vh;
+    body { min-height: 100vh; display: flex; flex-direction: column; }
+    .cs {
+      flex: 1;
       display: grid;
       grid-template-rows: auto 1fr auto;
-      padding: 36px clamp(20px, 5vw, 60px);
+      padding: 32px 0 28px;
     }
-
-    /* Top brand */
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      letter-spacing: .02em;
-    }
-    .mark {
-      display: inline-grid;
-      place-items: center;
-      width: 38px; height: 38px;
-      border: 1px solid var(--ink);
-      font-family: var(--serif);
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: .04em;
-    }
-    .wordmark {
-      font-family: var(--serif);
-      font-size: 17px;
-      font-weight: 500;
-    }
-
-    /* Center hero */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    .cs-nav { display: flex; justify-content: center; }
+    .cs-hero {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       text-align: center;
-      padding: 60px 0;
+      padding: 60px 24px;
       max-width: 720px;
       margin: 0 auto;
       width: 100%;
     }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 32px;
+    .cs-eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 28px;
     }
-    .eyebrow::before, .eyebrow::after {
-      content: "";
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--gold-deep);
-      opacity: 0.55;
+    .cs-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px var(--green-soft);
+      animation: pulse 2.2s ease-in-out infinite;
     }
-
-    h1 {
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: clamp(44px, 6.4vw, 84px);
-      line-height: 1.0;
-      letter-spacing: -0.018em;
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px var(--green-soft); }
+      50%      { box-shadow: 0 0 0 8px rgba(30,90,42,0.06); }
+    }
+    .cs-title {
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(44px, 7vw, 88px);
+      line-height: 1; letter-spacing: -0.025em;
       margin-bottom: 22px;
-      color: var(--ink);
     }
-    h1 em {
-      font-style: italic;
-      font-weight: 400;
-      background: linear-gradient(135deg, var(--ja-gold-deep) 0%, var(--ja-green) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: var(--ja-gold-deep);
+    .cs-title em { font-style: italic; font-weight: 400; color: var(--ink-soft); }
+    .cs-sub {
+      font-size: 16px; line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 480px;
+      margin: 0 auto 36px;
     }
-
-    .sub {
-      font-size: 16px;
-      line-height: 1.65;
-      color: var(--muted);
-      max-width: 460px;
-      margin: 0 auto 32px;
-    }
-
-    .status {
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: 18px;
-      color: var(--ja-green);
-      margin-bottom: 48px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .status::before, .status::after {
-      content: "✦";
-      color: var(--ja-gold);
-      font-style: normal;
-      font-size: 12px;
-      opacity: 0.85;
-    }
-
-    /* Email signup */
-    .signup {
-      display: flex;
-      gap: 8px;
-      background: rgba(26,26,26,0.04);
+    .cs-form {
+      display: flex; gap: 0;
+      background: var(--bg);
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 6px;
-      max-width: 460px;
-      width: 100%;
-      align-items: center;
+      padding: 4px;
+      max-width: 440px; width: 100%;
     }
-    .signup input {
-      flex: 1;
-      min-width: 0;
-      background: transparent;
-      border: 0;
-      outline: 0;
-      color: var(--ink);
-      padding: 12px 18px;
-      font-size: 14.5px;
-      font-family: var(--sans);
+    .cs-form input {
+      flex: 1; min-width: 0;
+      border: 0; background: transparent;
+      padding: 13px 20px;
+      font: inherit; outline: 0; color: var(--ink);
     }
-    .signup input::placeholder { color: rgba(26,26,26,0.45); }
-    .signup button {
-      background: var(--ink);
-      color: var(--cream);
-      padding: 12px 26px;
-      border: 0;
-      border-radius: 999px;
-      font-family: var(--sans);
-      font-size: 13.5px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: background .25s ease, transform .25s ease;
+    .cs-form input::placeholder { color: var(--mute); }
+    .cs-form button {
+      background: var(--ink); color: var(--bg);
+      border: 0; border-radius: 999px;
+      padding: 13px 26px;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: background .25s ease;
     }
-    .signup button:hover {
-      background: linear-gradient(135deg, var(--ja-green-deep) 0%, var(--ja-green) 60%, var(--ja-gold-deep) 100%);
-      transform: translateY(-1px);
-    }
-    .signup-note {
+    .cs-form button:hover { background: var(--green); }
+    .cs-note {
       font-size: 12px;
-      color: var(--muted);
+      color: var(--mute);
       margin-top: 16px;
-      letter-spacing: 0.04em;
       transition: color .25s ease;
     }
-
-    /* Footer */
-    .foot {
+    .cs-divider {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin: 32px auto;
+      color: var(--mute);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .cs-divider::before, .cs-divider::after {
+      content: ""; display: block;
+      width: 40px; height: 1px;
+      background: var(--line);
+    }
+    .cs-foot {
       text-align: center;
       font-size: 12px;
-      letter-spacing: 0.06em;
-      color: rgba(26,26,26,0.45);
+      letter-spacing: 0.04em;
+      color: var(--mute);
     }
-    .foot strong {
+    .cs-foot strong {
       display: block;
+      font-family: var(--serif);
       font-weight: 500;
-      color: var(--muted);
+      color: var(--ink);
+      font-size: 14px;
+      letter-spacing: -0.01em;
       margin-bottom: 4px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-size: 10.5px;
-    }
-
-    @media (max-width: 560px) {
-      .page { padding: 28px 22px; }
-      .hero { padding: 32px 0; }
-      .eyebrow { font-size: 10px; letter-spacing: 0.22em; margin-bottom: 24px; }
-      .eyebrow::before, .eyebrow::after { width: 18px; }
-      .status { font-size: 16px; margin-bottom: 36px; }
-      .signup { flex-direction: column; border-radius: 16px; padding: 8px; gap: 6px; }
-      .signup input { width: 100%; text-align: center; }
-      .signup button { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <main class="page">
-
-    <header class="brand">
-      <span class="mark">OS</span>
-      <span class="wordmark">Oliver Samuels</span>
+  <main class="cs wrap">
+    <header class="cs-nav">
+      <a class="nav-logo" href="index.html" style="font-size:20px">
+        <span class="mark">OS</span>
+        <span>Oliver Samuels</span>
+      </a>
     </header>
 
-    <section class="hero">
-      <p class="eyebrow">The Collection</p>
-      <h1>Fifty years<br/>of laughter,<br/><em>worn well.</em></h1>
-      <p class="sub">The official Oliver Samuels merch collection. Heritage tees, heavyweight hoodies, and signature caps — made in Jamaica.</p>
-      <p class="status">Launching soon</p>
+    <section class="cs-hero">
+      <p class="cs-eyebrow"><span class="dot"></span> The Collection · Launching 2026</p>
+      <h1 class="cs-title">Fifty years of laughter,<br/><em>worn well.</em></h1>
+      <p class="cs-sub">The official Oliver Samuels merch collection — heritage tees, heavyweight hoodies, and signature caps. Made in Jamaica.</p>
 
-      <form class="signup" onsubmit="handleSubmit(event)">
+      <form class="cs-form" onsubmit="handleSubmit(event)">
         <input type="email" placeholder="your@email.com" required aria-label="Email address" />
-        <button type="submit">Notify Me</button>
+        <button type="submit">Notify me</button>
       </form>
-      <p class="signup-note" id="signupNote">First access. No noise.</p>
+      <p class="cs-note" id="signupNote">First access. No noise.</p>
+
+      <span class="cs-divider">Coming soon</span>
     </section>
 
-    <footer class="foot">
-      <strong>Coming Soon — 2026</strong>
-      © Oliver Samuels · Kingston, Jamaica
+    <footer class="cs-foot">
+      <strong>Oliver Samuels</strong>
+      © 2026 · Kingston, Jamaica
     </footer>
   </main>
 
@@ -283,15 +159,13 @@
       const note = document.getElementById('signupNote');
       const email = form.querySelector('input').value.trim();
       if (!email || !email.includes('@')) return;
-      // TODO: before launch, wire this to Mailchimp / Klaviyo / Shopify customer signup.
-      // For now it just confirms locally so we capture the intent visually.
+      // TODO: wire to Mailchimp / Klaviyo / Shopify customer signup before launch.
       note.textContent = "Thanks — we'll be in touch at launch.";
-      note.style.color = 'var(--ja-green)';
-      form.style.opacity = '0.55';
+      note.style.color = 'var(--green)';
+      form.style.opacity = '0.6';
       form.querySelector('input').disabled = true;
       form.querySelector('button').disabled = true;
     }
   </script>
-
 </body>
 </html>

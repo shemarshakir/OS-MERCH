@@ -4,116 +4,208 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Journal · Oliver Samuels</title>
-  <meta name="description" content="Stay in the loop. Drops, restocks, and stories from the Oliver Samuels archive." />
+  <meta name="description" content="Notes and dispatches from the Oliver Samuels archive." />
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style-v2.css" />
+  <style>
+    .signup-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 5vw, 56px);
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 64px;
+    }
+    .signup-card h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 10px;
+    }
+    .signup-card h2 em { font-style: italic; color: var(--ink-soft); font-weight: 400; }
+    .signup-card p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+    .signup-form {
+      display: flex; gap: 0;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px;
+    }
+    .signup-form input {
+      flex: 1; min-width: 0;
+      border: 0; background: transparent;
+      padding: 12px 18px;
+      font: inherit; outline: 0;
+      color: var(--ink);
+    }
+    .signup-form button {
+      background: var(--ink); color: var(--bg);
+      border: 0; border-radius: 999px;
+      padding: 12px 22px;
+      font-size: 13px; font-weight: 600;
+      transition: background .2s ease;
+    }
+    .signup-form button:hover { background: var(--green); }
+    .signup-note { font-size: 12px; color: var(--mute); margin-top: 10px; }
+    @media (max-width: 760px) {
+      .signup-card { grid-template-columns: 1fr; }
+    }
+
+    .entries {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 24px;
+      padding-bottom: 80px;
+    }
+    .entry { display: block; color: inherit; }
+    .entry-media {
+      aspect-ratio: 4 / 3;
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .entry-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .entry:hover .entry-media img { transform: scale(1.04); }
+    .entry-meta {
+      font-size: 12px;
+      color: var(--mute);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .entry-meta .dot { color: var(--green); }
+    .entry h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .entry p {
+      font-size: 14px; color: var(--ink-soft); line-height: 1.6;
+    }
+    .entry .read {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px;
+      font-size: 13px; font-weight: 500;
+      color: var(--ink);
+    }
+    .entry .read::after { content: "→"; transition: transform .2s ease; }
+    .entry:hover .read::after { transform: translateX(3px); }
+    @media (max-width: 860px) { .entries { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .entries { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
-  <div class="announce">
-    <span>Free shipping across Jamaica on orders over $10,000 JMD · Worldwide delivery available</span>
-  </div>
+  <div class="announce"><b>Free shipping</b> on orders over $75 USD · Worldwide delivery available</div>
 
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a class="nav-logo" href="shop.html">
-        <span class="mark">OS</span>
-        <span class="wordmark">Oliver Samuels</span>
-      </a>
+  <nav class="top">
+    <div class="wrap nav-inner">
+      <a class="nav-logo" href="shop.html"><span class="mark">OS</span><span>Oliver Samuels</span></a>
       <ul class="nav-links">
         <li><a href="shop.html">Shop</a></li>
         <li><a href="story.html">Story</a></li>
         <li><a href="lookbook.html">Lookbook</a></li>
-        <li><a href="journal.html" class="active">Journal</a></li>
+        <li><a href="journal.html" class="is-active">Journal</a></li>
       </ul>
-      <div class="nav-actions">
-        <a href="shop.html" class="nav-cta">Cart · <span id="cartCount">0</span></a>
+      <div class="nav-right">
+        <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+        <button class="icon-btn" aria-label="Wishlist"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 7a5.5 5.5 0 0 1 9.5 5C19 16.5 12 21 12 21z"/></svg></button>
+        <button class="icon-btn" aria-label="Bag"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="cartCount">0</span></button>
       </div>
     </div>
   </nav>
 
-  <!-- JOURNAL -->
-  <section id="journal" class="journal journal--page">
-    <div class="container journal-inner">
-      <div>
-        <p class="eyebrow light">Stay in the loop</p>
-        <h1 class="page-title light">First dibs on drops,<br/><em>no noise.</em></h1>
-        <p class="light-sub">Subscribe for early access to new collections, restocks, and stories from the Oliver Samuels archive.</p>
+  <main>
+    <section class="wrap page-head">
+      <p class="crumb"><a href="shop.html">Home</a><span class="sep">/</span><span class="here">Journal</span></p>
+      <div class="page-row">
+        <h1 class="page-title">Notes &amp; <em>dispatches.</em></h1>
+        <p class="page-meta"><b>3</b> entries · From the archive</p>
       </div>
-      <form class="signup" id="signupForm">
-        <input type="email" placeholder="your@email.com" required aria-label="Email address" />
-        <button type="submit">Subscribe</button>
-        <p class="signup-note" id="signupNote"></p>
-      </form>
-    </div>
-  </section>
+      <p class="page-sub">Drops, restocks, and stories from behind the shoot.</p>
+    </section>
 
-  <!-- JOURNAL ENTRIES (placeholder) -->
-  <section class="entries">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">From the archive</p>
-        <h2 class="section-title">Notes &amp; <em>dispatches.</em></h2>
+    <section class="wrap">
+      <div class="signup-card">
+        <div>
+          <h2>First dibs on drops, <em>no noise.</em></h2>
+          <p>Subscribe for early access to new collections, restocks, and stories from the Oliver Samuels archive.</p>
+        </div>
+        <form class="signup-form" id="signupForm" onsubmit="event.preventDefault(); document.getElementById('signupNote').textContent='Thanks — we\\'ll be in touch.';">
+          <input type="email" placeholder="your@email.com" required aria-label="Email address" />
+          <button type="submit">Subscribe</button>
+          <p class="signup-note" id="signupNote"></p>
+        </form>
       </div>
-      <div class="entry-grid">
-        <article class="entry">
-          <div class="entry-img"><img src="images/portrait-laugh.jpeg" alt="" /></div>
-          <p class="entry-meta">May 2024 · Behind the Shoot</p>
+    </section>
+
+    <section class="wrap">
+      <div class="section-head">
+        <h2>From the <em>archive.</em></h2>
+        <span class="label">Recent dispatches</span>
+      </div>
+      <div class="entries">
+        <a class="entry" href="#">
+          <div class="entry-media"><img src="images/portrait-laugh.jpeg" alt="" /></div>
+          <p class="entry-meta">May 2024 <span class="dot">·</span> Behind the Shoot</p>
           <h3>A morning in Kingston</h3>
           <p>How the Spring / Summer portraits came together — analog film, no rush, the laughs you'd expect.</p>
-        </article>
-        <article class="entry">
-          <div class="entry-img"><img src="images/portrait-warm.jpeg" alt="" /></div>
-          <p class="entry-meta">April 2024 · Heritage</p>
+          <span class="read">Read more</span>
+        </a>
+        <a class="entry" href="#">
+          <div class="entry-media"><img src="images/portrait-warm.jpeg" alt="" /></div>
+          <p class="entry-meta">April 2024 <span class="dot">·</span> Heritage</p>
           <h3>On the catchphrase</h3>
           <p>"Large &amp; in Charge" started as an off-the-cuff line. Five decades later, it's still the one people quote.</p>
-        </article>
-        <article class="entry">
-          <div class="entry-img"><img src="images/portrait-pensive.jpeg" alt="" /></div>
-          <p class="entry-meta">March 2024 · Craft</p>
+          <span class="read">Read more</span>
+        </a>
+        <a class="entry" href="#">
+          <div class="entry-media"><img src="images/portrait-pensive.jpeg" alt="" /></div>
+          <p class="entry-meta">March 2024 <span class="dot">·</span> Craft</p>
           <h3>Why heavyweight cotton</h3>
           <p>Notes on the cloth, the cut, and why pieces should outlast a season.</p>
-        </article>
+          <span class="read">Read more</span>
+        </a>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <span class="mark big">OS</span>
-        <p>The official merch collection of Jamaica's King of Comedy.</p>
+  <footer class="site">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo"><span class="mark">OS</span><span>Oliver Samuels</span></div>
+          <p>The official heritage collection — designed and made in Kingston, Jamaica. Fifty years of laughter, worn well.</p>
+          <form class="newsletter" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed';">
+            <input type="email" placeholder="Email address" aria-label="Email address" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="footer-col"><h4>Shop</h4><a href="shop.html">Tees</a><a href="shop.html">Hoodies</a><a href="shop.html">Caps</a><a href="shop.html">All pieces</a></div>
+        <div class="footer-col"><h4>Help</h4><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Size guide</a><a href="#">Contact</a></div>
+        <div class="footer-col"><h4>Follow</h4><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">TikTok</a><a href="#">Facebook</a></div>
       </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <a href="shop.html">Tees</a>
-        <a href="shop.html">Hoodies</a>
-        <a href="shop.html">Caps</a>
-        <a href="shop.html">All</a>
+      <div class="footer-bottom">
+        <span>© 2026 Oliver Samuels. All rights reserved.</span>
+        <span>Designed in Kingston, Jamaica</span>
       </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <a href="#">Shipping</a>
-        <a href="#">Returns</a>
-        <a href="#">Size Guide</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Follow</h4>
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-        <a href="#">YouTube</a>
-        <a href="#">TikTok</a>
-      </div>
-    </div>
-    <div class="footer-bottom container">
-      <span>© 2026 Oliver Samuels. All rights reserved.</span>
-      <span>Designed in Kingston, Jamaica.</span>
     </div>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>
