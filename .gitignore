@@ -1,4 +1,14 @@
-.vercel/
+# Design handoff reference — kept locally, not deployed
+ENTRY GATE/
+oliver-merch-site-final/
+
+# OS
 .DS_Store
-node_modules/
-serve.py
+
+# Claude Code project skills (use ~/.claude/skills/ for global)
+.claude/
+
+# Secrets — never commit
+.env
+.env.local
+config.local.js

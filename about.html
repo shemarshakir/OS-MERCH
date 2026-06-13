@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>About — Oliver Samuels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Archivo+Expanded:wght@600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="site-head"></div>
+<main id="app">
+  <div class="wrap">
+    <div class="page-hero">
+      <div class="crumbs"><a href="index.html">Home</a> / About</div>
+      <h1>Fifty Years, One Smile</h1>
+    </div>
+
+    <div class="about-grid">
+      <image-slot id="about_portrait" placeholder="Drop a portrait of Oliver Samuels" fit="cover"></image-slot>
+      <div class="prose">
+        <p class="kicker">The Official Store</p>
+        <p class="lead">Oliver Samuels is Jamaica&rsquo;s most beloved comedian &mdash; a stage and screen icon who has been making the world laugh for over half a century.</p>
+        <p>From the legendary <em>Oliver at Large</em> to sold-out theatre runs across the Caribbean, the UK, and North America, his warmth and wit have crossed generations and borders. This store brings that same spirit into a collection you can wear.</p>
+        <p>Every piece is designed in the colours of home &mdash; clean black and white with the green and gold that run through everything Jamaican. Made well, made to last, and made with one love.</p>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="st"><div class="n">50+</div><div class="l">Years on Stage</div></div>
+      <div class="st"><div class="n">1000s</div><div class="l">Of Performances</div></div>
+      <div class="st"><div class="n">1</div><div class="l">Unmistakable Smile</div></div>
+    </div>
+
+    <div class="about-grid" style="border-bottom:1px solid var(--line);">
+      <div class="prose">
+        <p class="kicker">The Collection</p>
+        <p class="lead">Wearable tributes to a lifetime of laughter.</p>
+        <p>Tops, bottoms, and accessories built around the phrases and feeling that fans know by heart. </p>
+        <p>We keep the run small and the quality high. When something sells out, it stays special.</p>
+        <a class="hero-cta" style="position:static;background:var(--ink);color:#fff;margin-top:8px;" href="collection.html?cat=all">Shop the Collection &rarr;</a>
+      </div>
+      <image-slot id="about_collection" placeholder="Drop a collection / lifestyle image" fit="cover"></image-slot>
+    </div>
+  </div>
+</main>
+<div id="site-foot"></div>
+<script src="image-slot.js"></script>
+<script src="store.js"></script>
+<script>OS.renderHeader('about');OS.renderFooter();</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Contact — Oliver Samuels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Archivo+Expanded:wght@600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="site-head"></div>
+<main id="app">
+  <div class="wrap">
+    <div class="page-hero">
+      <div class="crumbs"><a href="index.html">Home</a> / Contact</div>
+      <h1>Get In Touch</h1>
+    </div>
+
+    <div class="contact-grid">
+      <form onsubmit="OS.toast('Message sent \u2014 we\u2019ll be in touch!');return false;">
+        <div class="field"><label for="cn">Name</label><input id="cn" type="text" placeholder="Your name" required/></div>
+        <div class="field"><label for="ce">Email</label><input id="ce" type="email" placeholder="you@email.com" required/></div>
+        <div class="field"><label for="cs">Subject</label><input id="cs" type="text" placeholder="Order, sizing, wholesale\u2026"/></div>
+        <div class="field"><label for="cm">Message</label><textarea id="cm" placeholder="How can we help?" required></textarea></div>
+        <button class="submit-btn" type="submit">Send Message</button>
+      </form>
+
+      <div class="contact-info">
+        <div class="ci"><h4>Customer Care</h4><p>support@oliversamuels.store</p></div>
+        <div class="ci"><h4>Wholesale &amp; Press</h4><p>hello@oliversamuels.store</p></div>
+        <div class="ci"><h4>Follow</h4><p><a href="https://www.instagram.com/theofficialoliversamuels/" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink);">@theofficialoliversamuels</a></p></div>
+        <div class="ci" style="border-bottom:0;"><h4>Response Time</h4><p>We reply within 1&ndash;2 business days.</p></div>
+      </div>
+    </div>
+  </div>
+</main>
+<div id="site-foot"></div>
+<script src="image-slot.js"></script>
+<script src="store.js"></script>
+<script>OS.renderHeader('');OS.renderFooter();</script>
+</body>
+</html>
