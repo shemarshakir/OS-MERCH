@@ -12,3 +12,4 @@ oliver-merch-site-final/
 .env
 .env.local
 config.local.js
+.vercel

@@ -74,7 +74,7 @@ ul{margin:0;padding:0;list-style:none;}
   align-items:center;
   height:var(--header-h);
 }
-.head-nav{ display:flex; gap:30px; align-items:center; }
+.head-nav{ display:flex; gap:22px; align-items:center; min-width:0; }
 .head-nav a, .head-tools button, .head-tools a{
   font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
   color:var(--ink);background:none;border:0;padding:0;position:relative;
@@ -230,11 +230,17 @@ ul{margin:0;padding:0;list-style:none;}
 .coll-filters a.active{ background:var(--ink);color:var(--paper);border-color:var(--ink); }
 
 /* ---------- Product detail ---------- */
-.pdp{ display:grid; grid-template-columns:1.35fr 1fr; gap:clamp(24px,3vw,60px); padding:clamp(20px,3vw,44px) 0 clamp(40px,6vw,90px); align-items:start; }
+.pdp{ display:grid; grid-template-columns:1.35fr minmax(0,1fr); gap:clamp(24px,3vw,60px); padding:clamp(20px,3vw,44px) 0 clamp(40px,6vw,90px); align-items:start; }
 .pdp .gallery{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .pdp .gallery image-slot{ width:100%; background:var(--paper-2); }
 .pdp .gallery .g-main{ grid-column:1 / -1; aspect-ratio:4/5; }
 .pdp .gallery .g-sub{ aspect-ratio:1/1; }
+/* colour-picker thumbnail strip under the main mockup */
+.pdp .gallery .g-thumbs{ grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px; }
+.g-thumb{ width:64px; height:64px; padding:0; border:1px solid var(--line-2); border-radius:4px; overflow:hidden; background:var(--paper-2); cursor:pointer; transition:border-color .15s ease; }
+.g-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.g-thumb:hover{ border-color:var(--muted-2); }
+.g-thumb.sel{ border-color:var(--ink); box-shadow:0 0 0 1px var(--ink); }
 .pdp .info{ position:sticky; top:calc(var(--header-h) + 24px); }
 .pdp .info .crumbs{ font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:18px; }
 .pdp .info h1{ font-family:var(--f-wide);font-weight:800;text-transform:uppercase;font-size:clamp(26px,3.2vw,42px);line-height:.95;margin:0 0 14px;letter-spacing:-.01em; }
@@ -279,8 +285,13 @@ ul{margin:0;padding:0;list-style:none;}
 .acc > button .pm{ font-size:18px;font-weight:400;transition:transform .2s ease; }
 .acc.open > button .pm{ transform:rotate(45deg); }
 .acc .body{ max-height:0;overflow:hidden;transition:max-height .3s ease; }
-.acc.open .body{ max-height:600px; }
-.acc .body .inner{ padding:0 0 22px;font-size:13.5px;line-height:1.65;color:var(--muted-2); }
+.acc.open .body{ max-height:2400px; }
+.acc .body .inner{ padding:0 0 22px;font-size:13.5px;line-height:1.65;color:var(--muted-2);overflow-x:auto; }
+/* Tapstitch size-guide tables ship with hard-coded pixel widths — keep them
+   contained so they scroll inside the accordion instead of stretching the page. */
+.acc .body .inner table{ max-width:100%; }
+.acc .body .inner table[style]{ width:auto !important; }
+.acc .body .inner table td[style], .acc .body .inner table th[style]{ width:auto !important; min-width:44px; }
 .acc .body .inner ul{ list-style:disc;padding-left:18px;display:flex;flex-direction:column;gap:5px; }
 .acc .body .inner table{ width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px; }
 .acc .body .inner th, .acc .body .inner td{ text-align:left;padding:7px 8px;border-bottom:1px solid var(--line); }
@@ -375,17 +386,28 @@ ul{margin:0;padding:0;list-style:none;}
   .grid{ grid-template-columns:repeat(3,1fr); }
   .site-foot .ftop{ grid-template-columns:1fr 1fr; gap:40px 30px; }
 }
+/* Swap the full text nav for the hamburger before it can crowd the centered
+   logo, without collapsing the desktop two-column product layout. */
+@media (max-width:1040px) and (min-width:821px){
+  .head-nav{ display:none; }
+  .nav-toggle{ display:flex; }
+}
 @media (max-width:820px){
   :root{ --header-h:64px; }
   .head-nav{ display:none; }
   .nav-toggle{ display:flex; }
-  .site-head .bar{ grid-template-columns:auto 1fr auto; }
-  .brand{ text-align:left; }
+  .site-head .bar{ grid-template-columns:auto 1fr auto; column-gap:14px; }
+  .brand{ text-align:center; font-size:18px; }
+  .brand small{ display:none; }
   .head-tools{ gap:16px; }
-  .pdp{ grid-template-columns:1fr; }
-  .pdp .info{ position:static; }
+  .head-tools > a{ display:none; }   /* Contact lives in the hamburger menu */
+  .pdp{ grid-template-columns:minmax(0,1fr); }
+  .pdp .info{ position:static; min-width:0; }
   .about-grid, .contact-grid{ grid-template-columns:1fr; }
   .grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:400px){
+  .brand{ font-size:16px; }
 }
 @media (max-width:520px){
   .grid{ grid-template-columns:repeat(2,1fr); gap:6px; }
