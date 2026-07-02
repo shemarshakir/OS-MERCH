@@ -50,10 +50,43 @@ const PRODUCT_FIELDS = `
   }
 `;
 
+// Preferred default colour for hero/card imagery, most-preferred first.
+// The store leads with a neutral mockup (black, then white, then grey) for
+// every product rather than whatever colour Shopify happens to return first.
+const NEUTRAL_COLOR_ORDER = [/black/i, /white/i, /gr[ae]y/i];
+function pickNeutralColor(values, hasImage){
+  for(const rx of NEUTRAL_COLOR_ORDER){
+    const match = values.find(v => rx.test(v) && hasImage(v));
+    if(match) return match;
+  }
+  return values.find(hasImage) || null;
+}
+
 function normalizeProduct(p){
   const images = p.images.edges.map(e=>e.node);
   const variants = p.variants.edges.map(e=>e.node);
   const options = (p.options||[]).filter(o=>!(o.name==="Title" && o.values.length===1 && o.values[0]==="Default Title"));
+  const allImages = images.length ? images : (p.featuredImage ? [p.featuredImage] : []);
+
+  // Map each colour value to its variant mockup image.
+  const colorOpt = options.find(o=>/colou?r/i.test(o.name));
+  const colorImages = {};
+  if(colorOpt){
+    variants.forEach(v=>{
+      const cv = v.selectedOptions.find(o=>o.name===colorOpt.name);
+      if(cv && v.image && !colorImages[cv.value]) colorImages[cv.value] = v.image;
+    });
+  }
+  const neutralColor = colorOpt ? pickNeutralColor(colorOpt.values, v=>!!colorImages[v]) : null;
+
+  // Tapstitch products ship a blank flat-lay as the first gallery image and
+  // put the real design mockup on each variant. Lead with a neutral colour's
+  // variant image so grid tiles and the PDP default to a black/white/grey
+  // design shot; fall back to any variant image, then the gallery image.
+  const primaryImage = (neutralColor && colorImages[neutralColor])
+    || (variants.find(v=>v.image)||{}).image
+    || allImages[0] || null;
+
   return {
     id: p.handle,
     gid: p.id,
@@ -65,7 +98,9 @@ function normalizeProduct(p){
     price: Number(p.priceRange.minVariantPrice.amount),
     compareAtPrice: (p.compareAtPriceRange && p.compareAtPriceRange.minVariantPrice) ? Number(p.compareAtPriceRange.minVariantPrice.amount) : null,
     currency: p.priceRange.minVariantPrice.currencyCode,
-    images: images.length ? images : (p.featuredImage ? [p.featuredImage] : []),
+    images: allImages,
+    primaryImage,
+    neutralColor,
     options,
     variants,
   };
@@ -346,7 +381,7 @@ function toast(msg){
 function cardHTML(p){
   const outOfStock = !p.availableForSale;
   const badge = outOfStock ? `<span class="badge sold">Sold Out</span>` : "";
-  const img = p.images[0];
+  const img = p.primaryImage || p.images[0];
   const imgHTML = img
     ? `<img src="${img.url}" alt="${(img.altText||p.title).replace(/"/g,'&quot;')}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"/>`
     : `<image-slot id="${galleryId(p.id,0)}" placeholder="${p.title}" fit="cover"></image-slot>`;
@@ -503,8 +538,10 @@ async function renderProduct(){
     || /^\s*(XS|S|M|L|XL|XXL|2XL|3XL)(\s+(XS|S|M|L|XL|XXL|2XL|3XL))+/i.test(descText);
   const tagline = looksLikeChart ? "" : descText.slice(0,220);
 
-  const defaultColor = colorOpt ? (colorOpt.values.find(v=>colorImages[v]) || null) : null;
-  const mainSrc = (defaultColor && colorImages[defaultColor]) || (p.images[0] && p.images[0].url) || "";
+  // Default to a neutral colour (black/white/grey) so the PDP opens on the same
+  // mockup shown on the grid, rather than whatever colour Shopify returns first.
+  const defaultColor = colorOpt ? pickNeutralColor(colorOpt.values, v=>!!colorImages[v]) : null;
+  const mainSrc = (defaultColor && colorImages[defaultColor]) || (p.primaryImage && p.primaryImage.url) || "";
 
   // Thumbnails double as a colour picker when the product has colours;
   // otherwise fall back to the product's own gallery images.
